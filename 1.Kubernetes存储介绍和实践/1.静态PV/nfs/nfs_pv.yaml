@@ -15,5 +15,5 @@ spec:
     #ReadOnlyMany（ ROX）表示该卷可以挂载到多个节点上,并被多个Pod 以只读方式挂载；
     #ReadWriteMany（RWX）表示卷可以被多个节点以读写方式挂载供多个 Pod 同时使用;
   nfs: #该pv 使用的nfs 类型,还支持通过 CSI 接入其他 plugin
-    path: /chj/nfsdata/nfs-provider
-    server: 192.168.47.21
+    path: /mnt/nfsdata/nfs-provider
+    server: 192.168.31.21
