@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pv-claim
+  namespace: demo
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+
+#PVC三种状态
+#Pending 表示还未绑定任何 PV；
+#Bound  表示已经和某个 PV 进行了绑定；
+#Lost   表示关联的 PV失联

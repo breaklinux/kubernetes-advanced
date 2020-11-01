@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: hostpath-pv-volume # pv 的名字
+  labels: # pv 的一些label
+    type: local
+spec:
+  storageClassName: manual #这个字段是某个StorageClass对象的名字
+  persistentVolumeReclaimPolicy: Recycle  #1.Recycle清除pv中数据# 2.Retain需要管理员回收 #3.Delete删除Storage Provider上的对应存储资源
+  capacity:
+    storage: 10Gi # 该 pv 的容量
+  accessModes: # 该 pv 的接入模式
+    - ReadWriteOnce
+    #ReadWriteOnce（RWO）表示该卷只可以以读写方式挂载到一个 Pod 内；
+    #ReadOnlyMany（ ROX）表示该卷可以挂载到多个节点上,并被多个Pod 以只读方式挂载；
+    #ReadWriteMany（RWX）表示卷可以被多个节点以读写方式挂载供多个 Pod 同时使用;
+  hostPath: #该pv 使用的hostpath 类型,还支持通过 CSI 接入其他 plugin
+    path: "/mnt/hostpath/data"
+
+
