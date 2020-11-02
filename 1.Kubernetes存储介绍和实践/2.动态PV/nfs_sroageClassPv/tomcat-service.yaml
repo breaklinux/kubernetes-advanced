@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: tomcat-jenkins-service
+spec:
+  selector:
+    app: tomcat-jenkins-pod
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  type: NodePort

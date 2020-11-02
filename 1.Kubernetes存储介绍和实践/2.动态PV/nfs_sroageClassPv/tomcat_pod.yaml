@@ -1,0 +1,22 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: tomcat-jenkins-pod
+spec:
+  containers:
+  - name: write-pod
+    image: tomcat:8.0
+    volumeMounts:
+      - name: nfs-tomcat-pvc
+        mountPath: "/usr/local/tomcat/webapps"
+  restartPolicy: "Never"
+  #pod 的重启策略有 3 种，默认值为 Always。
+  #Always: 容器失效时，kubelet 自动重启该容器；
+  #OnFailure:容器终止运行且退出码不为0时重启；
+  #Never：不论状态为何.kubelet 都不重启该容器。
+  #失败的容器由kubelet以五分钟为上限的指数退避延迟（10秒，20秒，40秒…）重新启动，并在成功执行十分钟后重置。
+
+  volumes:
+    - name: nfs-tomcat-pvc
+      persistentVolumeClaim:
+        claimName: tomcat-dynamic-pv-claim
