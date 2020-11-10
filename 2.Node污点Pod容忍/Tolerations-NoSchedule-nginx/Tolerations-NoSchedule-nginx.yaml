@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tolerationsnoSchedulenginx
+  labels:
+    env: toleration-NoSchedule-nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+  tolerations:
+  - key: "key1"
+    operator: "Exists" 
+    #1.如果operator的值是Exists，则value 属性可省略 
+    #2.如果operator的值是Equal,则表示其 key与value之间的关系是equal(等于
+    #3.如果不指定operator属性.则默认值为Equal 
+     #特殊配置 1.空的key如果再配合 Exists就能匹配所有的key与value,也是是能容忍所有node的所有Taints 5.空的effect匹配所有的effect
+    
+    effect: "NoSchedule" 
+    #1.NoSchedule 表示pod不会调度到标记为taints节点   
+    #2.NoExecute 意味着一旦taints生效,该节点运行的pod没有Tolerate 设置，会直接被逐出
+    #3.PreferNoSchedule：NoSchedule 的软策略版本，表示尽量不调度到污点节点上去   
