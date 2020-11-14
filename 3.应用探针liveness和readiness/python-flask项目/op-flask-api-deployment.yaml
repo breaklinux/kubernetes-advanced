@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: devops-python
+  name: ops-py-flask-api
+spec:
+  selector:
+    matchLabels:
+      app: ops-py-flask-api
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: ops-py-flask-api
+    spec:
+      containers:
+      - name: ops-py-flask-api
+        image: breaklinux/op-flask-api:v1
+        ports:
+        - containerPort: 8080
+
+        readinessProbe:
+          failureThreshold: 3
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 3
+
+
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthy
+            port: 8080
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 3
+
+
+
+
+

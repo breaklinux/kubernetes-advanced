@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: devops-python
+  name: ops-py-flask-api
+spec:
+  type: NodePort
+  selector:
+    app: ops-py-flask-api
+  ports:
+  - name: ops-py-flask-api
+    nodePort: 30080
+    protocol: TCP
+    port: 30080
+    targetPort: 8080
