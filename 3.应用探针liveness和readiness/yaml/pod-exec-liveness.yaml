@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: liveness
+  labels:
+    test: liveness
+  name: liveness-exec
+spec:
+  containers:
+  - name: yaml
+    image: k8s.gcr.io/busybox
+    args:
+    - /bin/sh
+    - -c
+    - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600
+
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5
+
+    readinessProbe:
+      exec:
+        command:
+          - cat
+          - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5
+

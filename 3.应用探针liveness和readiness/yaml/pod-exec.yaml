@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: liveness
+  labels:
+    test: standard-pod
+  name: standard-pod-exec
+spec:
+  containers:
+  - name: yaml
+    image: k8s.gcr.io/busybox
+    args:
+    - /bin/sh
+    - -c
+    - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600
