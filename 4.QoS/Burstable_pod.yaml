@@ -1,0 +1,18 @@
+
+#创建一个 QoS 类为 Burstable 的 Pod 满足条件如下
+#1.Pod 不符合 Guaranteed QoS 类的标准。
+#2.Pod 中至少一个容器具有内存或 CPU 请求。 requests limits
+apiVersion: v1
+kind: Pod
+metadata:
+  name: qos-demo-2
+  namespace: qos-example
+spec:
+  containers:
+  - name: qos-demo-2-ctr
+    image: nginx
+    resources:
+      limits:
+        memory: "200Mi"
+      requests:
+        memory: "100Mi"
